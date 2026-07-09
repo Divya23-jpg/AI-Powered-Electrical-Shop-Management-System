@@ -1,4 +1,5 @@
 import { APPS_SCRIPT_URL, STORE } from "./config";
+import { appendOrderFn, listOrdersFn } from "./sheets.functions";
 import { pad, money } from "./format";
 import type { CartItem, CustomerDetails, Order } from "./types";
 
@@ -50,19 +51,22 @@ export function whatsappUrl(order: Order): string {
 }
 
 export async function saveOrder(order: Order): Promise<void> {
-  if (!APPS_SCRIPT_URL) {
-    console.warn("APPS_SCRIPT_URL not set — skipping order save");
+  try {
+    await appendOrderFn({ data: { order } });
     return;
+  } catch (e) {
+    console.error("saveOrder (sheets) failed", e);
   }
+  // Legacy fallback: Apps Script webhook, if configured.
+  if (!APPS_SCRIPT_URL) return;
   try {
     await fetch(APPS_SCRIPT_URL, {
       method: "POST",
-      // Apps Script Web Apps accept text/plain to avoid CORS preflight
       headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify({ action: "createOrder", order }),
     });
   } catch (e) {
-    console.error("saveOrder failed", e);
+    console.error("saveOrder (apps script) failed", e);
   }
 }
 
@@ -86,14 +90,11 @@ export function makeOrder(
 }
 
 export async function fetchOrders(): Promise<Order[]> {
-  if (!APPS_SCRIPT_URL) return [];
   try {
-    const url = `${APPS_SCRIPT_URL}?action=listOrders`;
-    const res = await fetch(url);
-    if (!res.ok) return [];
-    const json = (await res.json()) as { orders?: Order[] };
-    return json.orders || [];
-  } catch {
+    const { orders } = await listOrdersFn();
+    return orders;
+  } catch (e) {
+    console.error("fetchOrders failed", e);
     return [];
   }
 }

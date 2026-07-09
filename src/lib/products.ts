@@ -1,5 +1,5 @@
-import Papa from "papaparse";
 import { SHEET_CSV_URL } from "./config";
+import { listProductsFn } from "./sheets.functions";
 import type { Product } from "./types";
 
 // Sample fallback products used when SHEET_CSV_URL is not configured yet
@@ -177,21 +177,31 @@ function rowToProduct(row: Record<string, string>): Product | null {
 }
 
 export async function fetchProducts(): Promise<Product[]> {
-  if (!SHEET_CSV_URL) return SAMPLE;
   try {
-    const res = await fetch(SHEET_CSV_URL, { cache: "no-store" });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const text = await res.text();
-    const parsed = Papa.parse<Record<string, string>>(text, {
-      header: true,
-      skipEmptyLines: true,
-    });
-    const list = parsed.data
-      .map(rowToProduct)
-      .filter((p): p is Product => !!p && p.active);
-    return list.length ? list : SAMPLE;
+    const { products, error } = await listProductsFn();
+    if (error) console.warn("listProductsFn:", error);
+    const active = products.filter((p) => p.active);
+    if (active.length) return active;
   } catch (e) {
     console.error("fetchProducts failed", e);
-    return SAMPLE;
   }
+  // Fallback: legacy CSV URL if configured, else sample data.
+  if (SHEET_CSV_URL) {
+    try {
+      const Papa = (await import("papaparse")).default;
+      const res = await fetch(SHEET_CSV_URL, { cache: "no-store" });
+      const text = await res.text();
+      const parsed = Papa.parse<Record<string, string>>(text, {
+        header: true,
+        skipEmptyLines: true,
+      });
+      const list = parsed.data
+        .map(rowToProduct)
+        .filter((p): p is Product => !!p && p.active);
+      if (list.length) return list;
+    } catch {
+      /* noop */
+    }
+  }
+  return SAMPLE;
 }

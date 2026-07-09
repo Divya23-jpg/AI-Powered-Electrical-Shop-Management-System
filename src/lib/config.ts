@@ -12,6 +12,47 @@ export const APPS_SCRIPT_URL: string =
   // TODO: paste your Apps Script Web App URL that appends to the Orders tab
   "";
 
+// Google Sheet backing the storefront. Read/write happens server-side via
+// the Lovable Google Sheets connector (see src/lib/sheets.functions.ts).
+export const SHEETS_SPREADSHEET_ID: string =
+  (import.meta.env.VITE_SHEETS_SPREADSHEET_ID as string | undefined) ??
+  "1yBYV0mrII05xT85syzP6o_ksYQFzVokNsN6nMofiNHc";
+
+export const PRODUCTS_SHEET = "Products";
+export const ORDERS_SHEET = "Orders";
+
+export const PRODUCT_HEADERS = [
+  "Product ID",
+  "Category",
+  "Product Name",
+  "Tag",
+  "Product Price",
+  "Discount",
+  "Discounted Price",
+  "Product Stock",
+  "Picture1",
+  "Picture2",
+  "Picture3",
+  "Description",
+  "Instagram Product Link",
+  "Active",
+] as const;
+
+export const ORDER_HEADERS = [
+  "Order ID",
+  "Created At",
+  "Customer Name",
+  "Phone",
+  "Email",
+  "Address",
+  "City",
+  "Pincode",
+  "Notes",
+  "Items JSON",
+  "Subtotal",
+  "Total",
+] as const;
+
 export const STORE = {
   name: "Kishor Electronics",
   tagline: "Lighting & Electricals for Every Home",

@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
 const WEBHOOK_URL =
-  "https://divya2312.app.n8n.cloud/webhook-test/a0fcb1bc-8e59-4d2c-a448-f78eba76374e";
+  "https://divya2312.app.n8n.cloud/webhook/a0fcb1bc-8e59-4d2c-a448-f78eba76374e";
 
 type Msg = { role: "user" | "bot"; text: string };
 

@@ -1,9 +1,9 @@
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
-import { Heart, Menu, Search, ShoppingCart, X } from "lucide-react";
+import { Heart, Instagram, Menu, MessageCircle, Phone, Search, ShoppingCart, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { STORE, CATEGORIES } from "@/lib/config";
+import { STORE, CATEGORIES, CONTACT } from "@/lib/config";
 import { useCart, useWishlist } from "@/lib/store";
 import { cn } from "@/lib/utils";
 
@@ -32,14 +32,21 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur transition-shadow",
-        scrolled && "shadow-sm",
+        "sticky top-0 z-40 border-b border-border/60 bg-background/85 backdrop-blur-xl transition-all",
+        scrolled && "shadow-[0_8px_28px_-16px_rgba(0,0,0,0.8)]",
       )}
     >
-      <div className="bg-brand text-brand-foreground">
-        <div className="container-page flex h-8 items-center justify-between text-xs">
-          <span>Free shipping on orders over ₹999 · WhatsApp checkout</span>
-          <span className="hidden sm:inline">Call: +91 94071 23853</span>
+      <div className="border-b border-border/40 bg-black text-brand">
+        <div className="container-page flex h-9 items-center justify-between text-[11px] tracking-wide">
+          <span className="text-ink-muted">Free shipping on orders over ₹999 · WhatsApp checkout</span>
+          <div className="hidden items-center gap-4 sm:flex">
+            <a href={`tel:+91${CONTACT.phone}`} className="inline-flex items-center gap-1.5 hover:text-brand-foreground transition-colors">
+              <Phone className="h-3 w-3" /> {CONTACT.phoneDisplay}
+            </a>
+            <a href={CONTACT.instagramUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 hover:text-brand-foreground transition-colors">
+              <Instagram className="h-3 w-3" /> @{CONTACT.instagramHandle}
+            </a>
+          </div>
         </div>
       </div>
       <div className="container-page flex h-16 items-center gap-4">
@@ -51,14 +58,14 @@ export function Navbar() {
           {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
         <Link to="/" className="flex items-center gap-2 shrink-0">
-          <div className="grid h-9 w-9 place-items-center rounded-lg bg-brand text-brand-foreground font-display font-bold">
-            K
+          <div className="grid h-10 w-10 place-items-center rounded-lg border border-brand/60 bg-gradient-to-br from-brand/20 to-transparent font-display text-sm font-bold tracking-tight text-brand">
+            KE
           </div>
           <div className="hidden sm:block">
-            <div className="font-display text-lg font-bold leading-none">
+            <div className="font-display text-lg font-bold leading-none tracking-tight">
               {STORE.name}
             </div>
-            <div className="text-[10px] uppercase tracking-widest text-ink-muted">
+            <div className="text-[10px] uppercase tracking-[0.2em] text-brand/80">
               Lighting & Electricals
             </div>
           </div>
@@ -70,11 +77,20 @@ export function Navbar() {
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder="Search LED bulbs, fans, extension boards…"
-              className="h-10 pl-10"
+              className="h-10 rounded-full border-border/60 bg-surface-alt pl-10"
             />
           </div>
         </form>
         <nav className="ml-auto flex items-center gap-1">
+          <a
+            href={CONTACT.instagramUrl}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Instagram"
+            className="hidden h-10 w-10 items-center justify-center rounded-md hover:bg-muted sm:inline-flex"
+          >
+            <Instagram className="h-5 w-5" />
+          </a>
           <Link
             to="/wishlist"
             className="relative inline-flex h-10 w-10 items-center justify-center rounded-md hover:bg-muted"
@@ -99,8 +115,10 @@ export function Navbar() {
               </span>
             )}
           </Link>
-          <Button asChild size="sm" className="ml-2 hidden md:inline-flex">
-            <Link to="/products">Shop now</Link>
+          <Button asChild size="sm" className="ml-2 hidden gap-1.5 md:inline-flex">
+            <a href={`https://wa.me/${CONTACT.whatsapp}`} target="_blank" rel="noreferrer">
+              <MessageCircle className="h-4 w-4" /> WhatsApp
+            </a>
           </Button>
         </nav>
       </div>

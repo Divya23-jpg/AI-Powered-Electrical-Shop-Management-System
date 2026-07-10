@@ -28,7 +28,7 @@ export function ChatWidget() {
   const [input, setInput] = useState("");
   const [sending, setSending] = useState(false);
   const [messages, setMessages] = useState<Msg[]>([
-    { role: "bot", text: "Hi! I'm Kishor Electronics assistant. How can I help you today?" },
+    { role: "bot", text: "Hi! I'm Kishore Electronics assistant. How can I help you today?" },
   ]);
   const sessionId = useRef<string>(
     typeof crypto !== "undefined" && "randomUUID" in crypto
@@ -91,7 +91,7 @@ export function ChatWidget() {
         >
           <div className="flex items-center justify-between bg-brand px-4 py-3 text-brand-foreground">
             <div>
-              <div className="text-sm font-semibold">Kishor Electronics</div>
+              <div className="text-sm font-semibold">Kishore Electronics</div>
               <div className="text-[11px] opacity-90">We reply as soon as we can</div>
             </div>
             <button onClick={() => setOpen(false)} aria-label="Close chat" className="p-1">

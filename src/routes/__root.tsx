@@ -80,14 +80,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Kishor Electronics — Lighting & Electricals Online" },
+      { title: "Kishore Electronics — Lighting & Electricals Online" },
       {
         name: "description",
         content:
-          "Shop LED bulbs, decorative lights, fans, MCBs, wires and more from Kishor Electronics. Quality electricals with fast WhatsApp checkout.",
+          "Shop LED bulbs, decorative lights, fans, MCBs, wires and more from Kishore Electronics. Quality electricals with fast WhatsApp checkout.",
       },
-      { name: "author", content: "Kishor Electronics" },
-      { property: "og:title", content: "Kishor Electronics — Lighting & Electricals" },
+      { name: "author", content: "Kishore Electronics" },
+      { property: "og:title", content: "Kishore Electronics — Lighting & Electricals" },
       {
         property: "og:description",
         content:

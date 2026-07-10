@@ -1,4 +1,4 @@
-// Kishor Electronics — runtime configuration.
+// Kishore Electronics — runtime configuration.
 // Drop your Google Sheet published CSV URL and Apps Script Web App URL here,
 // or set the matching VITE_* env vars.
 
@@ -54,12 +54,12 @@ export const ORDER_HEADERS = [
 ] as const;
 
 export const STORE = {
-  name: "Kishor Electronics",
+  name: "Kishore Electronics",
   tagline: "Lighting & Electricals for Every Home",
-  whatsappNumber: "919407123853", // +91 9407123853
+  whatsappNumber: "917415500492", // +91 7415500492
   currency: "₹",
-  supportEmail: "support@kishorelectronics.in",
-  address: "Kishor Electronics, India",
+  supportEmail: "support@kisore_electronics.in",
+  address: "815 Gandhi Chowk, Indore, MP",
 };
 
 export const CATEGORIES = [

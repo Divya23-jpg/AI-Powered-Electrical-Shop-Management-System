@@ -7,7 +7,7 @@ import { useCart } from "@/lib/store";
 export const Route = createFileRoute("/cart")({
   head: () => ({
     meta: [
-      { title: "Your Cart — Kishor Electronics" },
+      { title: "Your Cart — Kishore Electronics" },
       { name: "description", content: "Review the items in your cart before checkout." },
       { name: "robots", content: "noindex" },
     ],

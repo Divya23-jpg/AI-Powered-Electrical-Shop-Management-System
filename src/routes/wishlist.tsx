@@ -10,7 +10,7 @@ export const Route = createFileRoute("/wishlist")({
   loader: ({ context }) => context.queryClient.ensureQueryData(productsQuery),
   head: () => ({
     meta: [
-      { title: "Wishlist — Kishor Electronics" },
+      { title: "Wishlist — Kishore Electronics" },
       { name: "description", content: "Your saved products." },
       { name: "robots", content: "noindex" },
     ],

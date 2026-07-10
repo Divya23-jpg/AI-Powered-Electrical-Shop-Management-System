@@ -61,7 +61,7 @@ export function Footer() {
               <MapPin className="h-4 w-4" /> {STORE.address}
             </li>
             <li className="flex items-center gap-2">
-              <Instagram className="h-4 w-4" /> @kishorelectronics
+              <Instagram className="h-4 w-4" /> @kisore_electronics
             </li>
           </ul>
         </div>

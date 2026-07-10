@@ -38,7 +38,7 @@ function Home() {
             </h1>
             <p className="mt-4 max-w-lg text-base text-ink-muted sm:text-lg">
               Premium LED bulbs, decorative lights, fans and electricals — all
-              from Kishor Electronics, at prices that make sense.
+              from Kishore Electronics, at prices that make sense.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Button asChild size="lg" className="h-12 px-6">
@@ -114,7 +114,7 @@ function Home() {
               </p>
             </div>
             <Button asChild size="lg" variant="secondary" className="h-12 px-6">
-              <a href="https://wa.me/919407123853" target="_blank" rel="noreferrer">
+              <a href="https://wa.me/917415500492" target="_blank" rel="noreferrer">
                 Chat on WhatsApp
               </a>
             </Button>

@@ -23,9 +23,9 @@ export const Route = createFileRoute("/products")({
   loader: ({ context }) => context.queryClient.ensureQueryData(productsQuery),
   head: () => ({
     meta: [
-      { title: "All Products — Kishor Electronics" },
+      { title: "All Products — Kishore Electronics" },
       { name: "description", content: "Browse LED bulbs, decorative lights, fans, switches, MCBs, wires and more." },
-      { property: "og:title", content: "All Products — Kishor Electronics" },
+      { property: "og:title", content: "All Products — Kishore Electronics" },
       { property: "og:description", content: "Browse our full range of lighting and electricals." },
     ],
   }),

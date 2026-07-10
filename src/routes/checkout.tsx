@@ -14,7 +14,7 @@ import type { Order } from "@/lib/types";
 export const Route = createFileRoute("/checkout")({
   head: () => ({
     meta: [
-      { title: "Checkout — Kishor Electronics" },
+      { title: "Checkout — Kishore Electronics" },
       { name: "description", content: "Complete your order via WhatsApp." },
       { name: "robots", content: "noindex" },
     ],

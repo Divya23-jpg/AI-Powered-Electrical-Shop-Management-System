@@ -1,16 +1,17 @@
 import { Link } from "@tanstack/react-router";
-import { Heart, ShoppingCart } from "lucide-react";
+import { Heart, MessageCircle, ShoppingCart } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { money } from "@/lib/format";
 import { useCart, useWishlist } from "@/lib/store";
 import { cn } from "@/lib/utils";
 import type { Product } from "@/lib/types";
+import { CONTACT } from "@/lib/config";
 
 const tagStyles: Record<string, string> = {
   HOT: "bg-brand text-brand-foreground",
-  NEW: "bg-emerald-500 text-white",
-  SALE: "bg-amber-500 text-white",
+  NEW: "bg-foreground text-background",
+  SALE: "bg-brand text-brand-foreground",
 };
 
 export function ProductCard({ product }: { product: Product }) {
@@ -28,18 +29,18 @@ export function ProductCard({ product }: { product: Product }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.35, ease: "easeOut" }}
-      className="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-[var(--shadow-card)] transition-shadow hover:shadow-[var(--shadow-lift)]"
+      className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-[var(--shadow-card)] transition-all hover:-translate-y-0.5 hover:border-brand/60 hover:shadow-[var(--shadow-lift)]"
     >
       <Link
         to="/product/$id"
         params={{ id: product.id }}
-        className="relative block aspect-square overflow-hidden bg-surface-alt"
+        className="relative block aspect-square overflow-hidden bg-black"
       >
         <img
           src={img}
           alt={product.name}
           loading="lazy"
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="h-full w-full object-cover opacity-95 transition-transform duration-500 group-hover:scale-105"
         />
         {product.tag && tagStyles[product.tag] && (
           <span
@@ -52,7 +53,7 @@ export function ProductCard({ product }: { product: Product }) {
           </span>
         )}
         {discount > 0 && (
-          <span className="absolute right-3 top-3 rounded-full bg-background/95 px-2 py-0.5 text-[10px] font-bold text-brand shadow-sm">
+          <span className="absolute right-3 top-3 rounded-full border border-brand/40 bg-background/90 px-2 py-0.5 text-[10px] font-bold text-brand shadow-sm">
             -{discount}%
           </span>
         )}
@@ -62,7 +63,7 @@ export function ProductCard({ product }: { product: Product }) {
             toggle(product.id);
           }}
           aria-label="Toggle wishlist"
-          className="absolute bottom-3 right-3 grid h-9 w-9 place-items-center rounded-full bg-background/95 shadow-sm transition-colors hover:bg-brand hover:text-brand-foreground"
+          className="absolute bottom-3 right-3 grid h-9 w-9 place-items-center rounded-full border border-border bg-background/90 shadow-sm transition-colors hover:border-brand hover:bg-brand hover:text-brand-foreground"
         >
           <Heart
             className={cn("h-4 w-4", wished && "fill-brand text-brand")}
@@ -70,7 +71,7 @@ export function ProductCard({ product }: { product: Product }) {
         </button>
       </Link>
       <div className="flex flex-1 flex-col gap-2 p-4">
-        <div className="text-[10px] font-medium uppercase tracking-wider text-ink-muted">
+        <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-brand/80">
           {product.category || "Electricals"}
         </div>
         <Link
@@ -82,7 +83,7 @@ export function ProductCard({ product }: { product: Product }) {
         </Link>
         <div className="mt-auto flex items-end justify-between gap-2 pt-2">
           <div className="flex items-baseline gap-2">
-            <span className="font-display text-lg font-bold text-ink">
+            <span className="font-display text-lg font-bold text-foreground">
               {money(product.discountedPrice || product.price)}
             </span>
             {discount > 0 && (
@@ -91,15 +92,27 @@ export function ProductCard({ product }: { product: Product }) {
               </span>
             )}
           </div>
-          <Button
-            size="sm"
-            onClick={() => add(product)}
-            className="h-9 gap-1 px-3"
-            aria-label={`Add ${product.name} to cart`}
-          >
-            <ShoppingCart className="h-4 w-4" />
-            <span className="hidden sm:inline">Add</span>
-          </Button>
+          <div className="flex items-center gap-1.5">
+            <a
+              href={`https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent(`Hi, I'd like to enquire about ${product.name}`)}`}
+              target="_blank"
+              rel="noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              aria-label="Enquire on WhatsApp"
+              className="grid h-9 w-9 place-items-center rounded-md border border-border text-foreground transition-colors hover:border-brand hover:bg-brand hover:text-brand-foreground"
+            >
+              <MessageCircle className="h-4 w-4" />
+            </a>
+            <Button
+              size="sm"
+              onClick={() => add(product)}
+              className="h-9 gap-1 px-3"
+              aria-label={`Add ${product.name} to cart`}
+            >
+              <ShoppingCart className="h-4 w-4" />
+              <span className="hidden sm:inline">Add</span>
+            </Button>
+          </div>
         </div>
       </div>
     </motion.div>

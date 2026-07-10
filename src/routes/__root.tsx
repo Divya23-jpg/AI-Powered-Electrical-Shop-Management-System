@@ -80,18 +80,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Kishor Electronics — Lighting & Electricals Online" },
+      { title: "Kishore Electronics — Premium Lighting & Electricals, Indore" },
       {
         name: "description",
         content:
-          "Shop LED bulbs, decorative lights, fans, MCBs, wires and more from Kishor Electronics. Quality electricals with fast WhatsApp checkout.",
+          "Premium electrical showroom in Indore. Shop LED bulbs, decorative lights, fans, switches, wires and MCBs from Kishore Electronics with fast WhatsApp checkout.",
       },
-      { name: "author", content: "Kishor Electronics" },
-      { property: "og:title", content: "Kishor Electronics — Lighting & Electricals" },
+      { name: "author", content: "Kishore Electronics" },
+      { property: "og:title", content: "Kishore Electronics — Premium Lighting & Electricals" },
       {
         property: "og:description",
         content:
-          "Premium lighting and electricals for every home. LED bulbs, fans, wires, switches, decorative lights and more.",
+          "Matte black. Matte gold. Kishore Electronics — a premium electrical showroom in Indore. LED bulbs, fans, wires, switches, decorative lights and more.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

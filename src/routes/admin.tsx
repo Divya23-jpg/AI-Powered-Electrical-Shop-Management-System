@@ -19,7 +19,7 @@ import type { Product } from "@/lib/types";
 export const Route = createFileRoute("/admin")({
   head: () => ({
     meta: [
-      { title: "Admin — Kishor Electronics" },
+      { title: "Admin — Kishore Electronics" },
       { name: "robots", content: "noindex" },
     ],
   }),

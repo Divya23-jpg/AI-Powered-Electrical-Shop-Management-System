@@ -18,14 +18,14 @@ export const Route = createFileRoute("/product/$id")({
   },
   head: ({ loaderData }) => {
     if (!loaderData) {
-      return { meta: [{ title: "Product not found — Kishor Electronics" }, { name: "robots", content: "noindex" }] };
+      return { meta: [{ title: "Product not found — Kishore Electronics" }, { name: "robots", content: "noindex" }] };
     }
     const p = loaderData.product;
     return {
       meta: [
-        { title: `${p.name} — Kishor Electronics` },
-        { name: "description", content: p.description || `Buy ${p.name} at Kishor Electronics.` },
-        { property: "og:title", content: `${p.name} — Kishor Electronics` },
+        { title: `${p.name} — Kishore Electronics` },
+        { name: "description", content: p.description || `Buy ${p.name} at Kishore Electronics.` },
+        { property: "og:title", content: `${p.name} — Kishore Electronics` },
         { property: "og:description", content: p.description || "" },
         ...(p.images[0] ? [{ property: "og:image", content: p.images[0] }] : []),
         ...(p.images[0] ? [{ name: "twitter:image", content: p.images[0] }] : []),
@@ -136,7 +136,7 @@ function ProductPage() {
           </div>
 
           <p className="mt-6 text-sm leading-relaxed text-ink-muted">
-            {product.description || "Quality electrical product from Kishor Electronics."}
+            {product.description || "Quality electrical product from Kishore Electronics."}
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -181,7 +181,7 @@ function ProductPage() {
           </div>
 
           <div className="mt-8 rounded-xl border border-border bg-surface-alt p-4 text-xs text-ink-muted">
-            <div className="font-semibold text-ink">Why buy from Kishor Electronics?</div>
+            <div className="font-semibold text-ink">Why buy from Kishore Electronics?</div>
             <ul className="mt-2 space-y-1">
               <li>• Quality-checked, genuine products</li>
               <li>• Fast dispatch across India</li>

@@ -177,15 +177,7 @@ function rowToProduct(row: Record<string, string>): Product | null {
 }
 
 export async function fetchProducts(): Promise<Product[]> {
-  try {
-    const { products, error } = await listProductsFn();
-    if (error) console.warn("listProductsFn:", error);
-    const active = products.filter((p) => p.active);
-    if (active.length) return active;
-  } catch (e) {
-    console.error("fetchProducts failed", e);
-  }
-  // Fallback: legacy CSV URL if configured, else sample data.
+  // Prefer the published CSV URL when configured — it's how the user edits inventory.
   if (SHEET_CSV_URL) {
     try {
       const Papa = (await import("papaparse")).default;
@@ -199,9 +191,18 @@ export async function fetchProducts(): Promise<Product[]> {
         .map(rowToProduct)
         .filter((p): p is Product => !!p && p.active);
       if (list.length) return list;
-    } catch {
-      /* noop */
+    } catch (e) {
+      console.error("CSV fetch failed", e);
     }
+  }
+  // Fallback: Google Sheets connector (read/write), if available.
+  try {
+    const { products, error } = await listProductsFn();
+    if (error) console.warn("listProductsFn:", error);
+    const active = products.filter((p) => p.active);
+    if (active.length) return active;
+  } catch (e) {
+    console.error("fetchProducts failed", e);
   }
   return SAMPLE;
 }

@@ -4,8 +4,8 @@
 
 export const SHEET_CSV_URL: string =
   (import.meta.env.VITE_SHEET_CSV_URL as string | undefined) ??
-  // TODO: paste your "Publish to web" CSV link for the Products sheet
-  "";
+  // "Publish to web" CSV link for the Products sheet
+  "https://docs.google.com/spreadsheets/d/e/2PACX-1vQbN8OeLji3qiEB_RgV4jACai3xepg_9qPDGXvkF8iBjo_pNrGLt-jQiRkc67dW2cw1XIadi-Agim1K/pub?gid=0&single=true&output=csv";
 
 export const APPS_SCRIPT_URL: string =
   (import.meta.env.VITE_APPS_SCRIPT_URL as string | undefined) ??

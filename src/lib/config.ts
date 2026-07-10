@@ -62,6 +62,15 @@ export const STORE = {
   address: "815 Gandhi Chowk, Indore, MP",
 };
 
+export const CONTACT = {
+  phone: "7415500492",
+  phoneDisplay: "+91 74155 00492",
+  whatsapp: "917415500492",
+  instagramHandle: "kisore_electronics",
+  instagramUrl: "https://www.instagram.com/kisore_electronics",
+  addressLines: ["815 Gandhi Chowk", "Indore, Madhya Pradesh, India"],
+};
+
 export const CATEGORIES = [
   "Decorative Lights",
   "LED Bulbs",

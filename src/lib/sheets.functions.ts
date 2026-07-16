@@ -310,3 +310,26 @@ export const listOrdersFn = createServerFn({ method: "GET" }).handler(
     }
   },
 );
+
+// -------- raw Sheet1 fetch (columns A:N) for dashboard table --------
+
+export const listSheet1Fn = createServerFn({ method: "GET" }).handler(
+  async () => {
+    try {
+      const range = `Sheet1!A1:N`;
+      const res = await sheets(
+        `/spreadsheets/${SHEETS_SPREADSHEET_ID}/values/${range}`,
+      );
+      const values: string[][] = res.values || [];
+      const headers = values[0] || [];
+      const rows = values.slice(1);
+      return { headers, rows, error: null as string | null };
+    } catch (e) {
+      return {
+        headers: [] as string[],
+        rows: [] as string[][],
+        error: e instanceof Error ? e.message : "sheets error",
+      };
+    }
+  },
+);

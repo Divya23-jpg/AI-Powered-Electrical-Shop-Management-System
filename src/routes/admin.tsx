@@ -5,7 +5,7 @@ import {
   Package, TrendingUp, Users, IndianRupee, Plus, Pencil, Trash2, Save, X,
 } from "lucide-react";
 import { money } from "@/lib/format";
-import { ordersQuery, productsQuery } from "@/lib/queries";
+import { ordersQuery, productsQuery, sheet1Query } from "@/lib/queries";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -30,7 +30,8 @@ function AdminPage() {
   const qc = useQueryClient();
   const { data: orders = [], isLoading } = useQuery(ordersQuery);
   const { data: products = [] } = useQuery(productsQuery);
-  const [tab, setTab] = useState<"orders" | "products">("orders");
+  const { data: sheet1 } = useQuery(sheet1Query);
+  const [tab, setTab] = useState<"orders" | "products" | "inventory">("orders");
   const [editing, setEditing] = useState<Product | null>(null);
 
   const saveMut = useMutation({
@@ -95,7 +96,7 @@ function AdminPage() {
       </div>
 
       <div className="mt-6 flex gap-2 border-b border-border">
-        {(["orders", "products"] as const).map((t) => (
+        {(["orders", "products", "inventory"] as const).map((t) => (
           <button
             key={t}
             onClick={() => setTab(t)}
@@ -106,7 +107,7 @@ function AdminPage() {
                 : "text-ink-muted hover:text-foreground")
             }
           >
-            {t}
+            {t === "inventory" ? "Inventory (Sheet1)" : t}
           </button>
         ))}
       </div>
@@ -248,6 +249,53 @@ function AdminPage() {
           onSave={(p) => saveMut.mutate(p)}
           saving={saveMut.isPending}
         />
+      )}
+
+      {tab === "inventory" && (
+        <div className="mt-6 rounded-xl border border-border bg-card">
+          <div className="flex items-center justify-between border-b border-border p-4">
+            <div>
+              <div className="font-semibold">Inventory — Sheet1 (A:N)</div>
+              <div className="text-xs text-ink-muted">
+                Live view of your Google Sheet · {sheet1?.rows.length ?? 0} rows
+              </div>
+            </div>
+          </div>
+          {sheet1?.error && (
+            <div className="border-b border-border bg-red-500/10 px-4 py-2 text-xs text-red-500">
+              {sheet1.error}
+            </div>
+          )}
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead className="bg-surface-alt text-left text-xs uppercase tracking-wider text-ink-muted">
+                <tr>
+                  {(sheet1?.headers ?? []).map((h, i) => (
+                    <th key={i} className="whitespace-nowrap px-3 py-3">{h || `Col ${i + 1}`}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {(sheet1?.rows ?? []).map((r, ri) => (
+                  <tr key={ri} className="border-t border-border">
+                    {(sheet1?.headers ?? []).map((_, ci) => (
+                      <td key={ci} className="whitespace-nowrap px-3 py-2 align-top text-ink-muted">
+                        {r[ci] ?? ""}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+                {(!sheet1 || sheet1.rows.length === 0) && (
+                  <tr>
+                    <td colSpan={Math.max(1, sheet1?.headers.length ?? 1)} className="px-4 py-6 text-ink-muted">
+                      No rows found in Sheet1.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
       )}
     </div>
   );
